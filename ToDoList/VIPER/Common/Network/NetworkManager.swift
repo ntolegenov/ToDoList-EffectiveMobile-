@@ -10,7 +10,7 @@ enum NetworkError: Error {
 class NetworkManager {
     static let shared = NetworkManager()
     
-    private let baseURL = "https://jsonplaceholder.typicode.com/todos"
+    private let baseURL = "https://dummyjson.com/todos"
     
     private init() {}
     
