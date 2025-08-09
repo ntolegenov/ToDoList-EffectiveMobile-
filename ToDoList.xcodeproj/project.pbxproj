@@ -27,6 +27,7 @@
 		04ECAA6D2E435D5C001009F5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04ECAA6C2E435D5C001009F5 /* ContentView.swift */; };
 		04ECAA6F2E435D5F001009F5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04ECAA6E2E435D5F001009F5 /* Assets.xcassets */; };
 		04ECAA732E435D5F001009F5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04ECAA722E435D5F001009F5 /* Preview Assets.xcassets */; };
+		0A2FB9982E474B1B00263CB6 /* TodoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2FB9972E474B1700263CB6 /* TodoListView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,8 @@
 		04ECAA6E2E435D5F001009F5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		04ECAA702E435D5F001009F5 /* ToDoList.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ToDoList.entitlements; sourceTree = "<group>"; };
 		04ECAA722E435D5F001009F5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		0A2FB9952E474B0F00263CB6 /* Untitled.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Untitled.swift; sourceTree = "<group>"; };
+		0A2FB9972E474B1700263CB6 /* TodoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -251,6 +254,8 @@
 			children = (
 				048872E12E4384D8006723A8 /* VIPER */,
 				04ECAA652E435D5C001009F5 /* ToDoListApp.swift */,
+				0A2FB9972E474B1700263CB6 /* TodoListView.swift */,
+				0A2FB9952E474B0F00263CB6 /* Untitled.swift */,
 				04ECAA672E435D5C001009F5 /* Persistence.swift */,
 				04ECAA6C2E435D5C001009F5 /* ContentView.swift */,
 				04ECAA6E2E435D5F001009F5 /* Assets.xcassets */,
@@ -345,6 +350,7 @@
 				04ECAA6B2E435D5C001009F5 /* ToDoList.xcdatamodeld in Sources */,
 				0488730F2E4384D8006723A8 /* TodoListRouter.swift in Sources */,
 				04ECAA6D2E435D5C001009F5 /* ContentView.swift in Sources */,
+				0A2FB9982E474B1B00263CB6 /* TodoListView.swift in Sources */,
 				048873042E4384D8006723A8 /* TodoModel.swift in Sources */,
 				04ECAA682E435D5C001009F5 /* Persistence.swift in Sources */,
 				048873022E4384D8006723A8 /* NetworkManager.swift in Sources */,

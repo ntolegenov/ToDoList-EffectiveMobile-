@@ -1,13 +1,7 @@
-//
-//  TodoListInteractor.swift
-//  ToDoList
-//
-//  Created by Madi Sharipov on 06.08.2025.
-//
-
 import Foundation
 import CoreData
 
+// MARK: - Protocol TodoListInteractorProtocol
 protocol TodoListInteractorProtocol: AnyObject {
     func loadTodos()
     func searchTodos(query: String)
@@ -15,6 +9,7 @@ protocol TodoListInteractorProtocol: AnyObject {
     func toggleTodoCompletion(_ todo: TodoItem)
 }
 
+// MARK: - Protocol TodoListInteractorOutput
 protocol TodoListInteractorOutput: AnyObject {
     func todosLoaded(_ todos: [TodoItem])
     func todosSearched(_ todos: [TodoItem])
@@ -24,6 +19,7 @@ protocol TodoListInteractorOutput: AnyObject {
     func loadingFailed(_ error: String)
 }
 
+// MARK: - Class TodoListInteractor
 class TodoListInteractor: TodoListInteractorProtocol {
     weak var output: TodoListInteractorOutput?
     private let coreDataManager = CoreDataManager.shared
@@ -32,22 +28,15 @@ class TodoListInteractor: TodoListInteractorProtocol {
     func loadTodos() {
         output?.loadingStarted()
         
-        Task {
-            do {
-                // Сначала загружаем из CoreData
-                let localTodos = coreDataManager.fetchTodos()
-                
-                await MainActor.run {
-                    if localTodos.isEmpty {
-                        // Если локальных данных нет, загружаем с сервера
-                        Task {
-                            await self.loadFromServer()
-                        }
-                    } else {
-                        self.output?.todosLoaded(localTodos)
-                    }
-                }
+        // Вся логика загрузки данных теперь здесь
+        let localTodos = coreDataManager.fetchTodos()
+        
+        if localTodos.isEmpty {
+            Task {
+                await self.loadFromServer()
             }
+        } else {
+            output?.todosLoaded(localTodos)
         }
     }
     
@@ -56,10 +45,7 @@ class TodoListInteractor: TodoListInteractorProtocol {
             let response = try await networkManager.fetchTodos()
             
             await MainActor.run {
-                // Сохраняем в CoreData
                 self.coreDataManager.saveTodos(response.todos)
-                
-                // Загружаем из CoreData
                 let todos = self.coreDataManager.fetchTodos()
                 self.output?.todosLoaded(todos)
             }
@@ -81,6 +67,8 @@ class TodoListInteractor: TodoListInteractorProtocol {
     }
     
     func toggleTodoCompletion(_ todo: TodoItem) {
+        // Здесь мы просто сохраняем изменения в Core Data,
+        // так как toggleTodoCompletion уже меняет isCompleted
         todo.isCompleted.toggle()
         coreDataManager.save()
         output?.todoUpdated()

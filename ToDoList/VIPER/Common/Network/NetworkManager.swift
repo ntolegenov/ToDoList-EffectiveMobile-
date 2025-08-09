@@ -1,10 +1,3 @@
-//
-//  NetworkManager.swift
-//  ToDoList
-//
-//  Created by Madi Sharipov on 06.08.2025.
-//
-
 import Foundation
 
 enum NetworkError: Error {
@@ -16,7 +9,8 @@ enum NetworkError: Error {
 
 class NetworkManager {
     static let shared = NetworkManager()
-    private let baseURL = "https://dummyjson.com"
+    
+    private let baseURL = "https://jsonplaceholder.typicode.com/todos"
     
     private init() {}
     
@@ -29,7 +23,8 @@ class NetworkManager {
         
         guard let httpResponse = response as? HTTPURLResponse,
               (200...299).contains(httpResponse.statusCode) else {
-            throw NetworkError.serverError("Server error")
+            let statusCode = (response as? HTTPURLResponse)?.statusCode ?? -1
+            throw NetworkError.serverError("Server returned an error with status code: \(statusCode)")
         }
         
         do {

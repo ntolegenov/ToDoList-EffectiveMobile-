@@ -1,10 +1,3 @@
-//
-//  CoreDataManager.swift
-//  ToDoList
-//
-//  Created by Madi Sharipov on 06.08.2025.
-//
-
 import CoreData
 import Foundation
 
@@ -101,13 +94,13 @@ class CoreDataManager {
         }
     }
     
-    func addTodo(title: String, description: String?) {
+    func addTodo(title: String, description: String?, isCompleted: Bool = false) {
         let context = container.viewContext
         let todoItem = TodoItem(context: context)
         todoItem.id = Int32.random(in: 1000...9999)
         todoItem.title = title
         todoItem.todoDescription = description
-        todoItem.isCompleted = false
+        todoItem.isCompleted = isCompleted
         todoItem.createdAt = Date()
         todoItem.userId = 1
         
@@ -115,16 +108,23 @@ class CoreDataManager {
     }
     
     func updateTodo(_ todo: TodoItem, title: String, description: String?, isCompleted: Bool) {
-        todo.title = title
-        todo.todoDescription = description
-        todo.isCompleted = isCompleted
-        
-        save()
+        // Убедимся, что объект принадлежит текущему контексту
+        if viewContext.object(with: todo.objectID) as? TodoItem == todo {
+            todo.title = title
+            todo.todoDescription = description
+            todo.isCompleted = isCompleted
+            save()
+        } else {
+            print("Error: TodoItem does not belong to the current context")
+        }
     }
     
     func deleteTodo(_ todo: TodoItem) {
         let context = container.viewContext
-        context.delete(todo)
-        save()
+        if context.object(with: todo.objectID) as? TodoItem == todo {
+            context.delete(todo)
+            save()
+        }
     }
 }
+

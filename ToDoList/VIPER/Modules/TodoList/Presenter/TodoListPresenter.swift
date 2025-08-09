@@ -1,22 +1,17 @@
-//
-//  TodoListPresenter.swift
-//  ToDoList
-//
-//  Created by Madi Sharipov on 06.08.2025.
-//
-
 import Foundation
 import CoreData
+import SwiftUI
 
+// MARK: - Protocol TodoListViewProtocol
 protocol TodoListViewProtocol: AnyObject {
     func displayTodos(_ todos: [TodoItem])
     func displaySearchResults(_ todos: [TodoItem])
     func showLoading()
     func hideLoading()
     func showError(_ message: String)
-    func refreshData()
 }
 
+// MARK: - Protocol TodoListPresenterProtocol
 protocol TodoListPresenterProtocol: AnyObject {
     func viewDidLoad()
     func searchTodos(query: String)
@@ -26,6 +21,7 @@ protocol TodoListPresenterProtocol: AnyObject {
     func editTodo(_ todo: TodoItem)
 }
 
+// MARK: - Class TodoListPresenter
 class TodoListPresenter: TodoListPresenterProtocol, TodoListInteractorOutput, ObservableObject {
     weak var view: TodoListViewProtocol?
     var interactor: TodoListInteractorProtocol?
@@ -35,6 +31,7 @@ class TodoListPresenter: TodoListPresenterProtocol, TodoListInteractorOutput, Ob
     private var isSearching = false
     
     func viewDidLoad() {
+        view?.showLoading()
         interactor?.loadTodos()
     }
     
